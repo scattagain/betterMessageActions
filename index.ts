@@ -41,7 +41,7 @@ export default definePlugin({
                 },
                 {
                     match: /(searchReplace.*action\(.*"")};/,
-                    replace: "$1,failed:true};"
+                    replace: "$1,_bmc_notself:true};"
                 }
             ],
         },
@@ -49,7 +49,7 @@ export default definePlugin({
             find: "handleSendMessage",
             replacement: {
                 match: /(!1}\);)(null!=(.))/,
-                replace: "$1if ($3?.failed) return {shouldClear: false, shouldRefocus: true};$2"
+                replace: "$1if ($3?._bmc_notself) return {shouldClear: false, shouldRefocus: true};$2"
             }
         }
     ],
